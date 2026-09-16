@@ -1,0 +1,14 @@
+# Render blueprint for the MetroMind backend.
+#
+# Frontend is deployed separately on Vercel via vercel.json (static, no server
+# required). This service only exposes the Spring Boot backend; today it serves
+# a single health endpoint (GET /api/health) — there is no REST routing API,
+# so the frontend does not call this service yet.
+services:
+  - type: web
+    name: metromind-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: mvn clean package
+    startCommand: java -jar target/metromind-backend-0.1.0.jar
+    healthCheckPath: /api/health

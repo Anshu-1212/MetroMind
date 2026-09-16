@@ -83,7 +83,48 @@ The backend runs at `http://localhost:8080`. Verify with:
 curl http://localhost:8080/api/health
 ```
 
+## Deployment
+
+MetroMind is a monorepo with two deployables that are currently **independent**
+— the frontend does not call the backend. Full details in
+[docs/deployment.md](docs/deployment.md).
+
+```
+Browser ──► Vercel (frontend, static)      Render (backend, Java service)
+                 │ bundles data/metro-network.json │  /api/health only
+                 │ runs client-side demo routers   │  routing not exposed
+                 └──────── no HTTP bridge ─────────┘
+```
+
+- **Frontend → Vercel.** Project root `frontend/`; Vercel is auto-configured by
+  the repo-root [vercel.json](vercel.json) (`rootDirectory: "frontend"`,
+  `buildCommand: "npm run build"`, `outputDirectory: "dist"`). The network
+  dataset is bundled into the build, so **no environment variables are needed**.
+- **Backend → Render.** Prepared in [render.yaml](render.yaml) using Render's
+  Java runtime (`rootDir: backend`, `mvn clean package`, then
+  `java -jar target/metromind-backend-0.1.0.jar`; Java 21, Spring Boot 3.5).
+  The server honors a platform-provided `PORT` (`server.port=${PORT:8080}`).
+- **Current API status: `GET /api/health` is the only endpoint.** There is no
+  REST routing API, and the deployed frontend does not call the backend —
+  its BFS / Dijkstra / A* views run the documented client-side demo routers.
+
+**Production build commands:**
+
+```bash
+cd frontend && npm run build && npm run lint   # → frontend/dist/
+cd backend  && mvn clean package               # → backend/target/metromind-backend-0.1.0.jar
+```
+
 ## Current Status
+
+**Phase 9 — Deployment & Production Readiness**
+
+The project is deployment-ready: the frontend builds for production (static, to
+be hosted on Vercel) and the backend builds a reproducible Spring Boot JAR
+(prepared for Render). The two are currently **independent** — see the
+[Deployment](#deployment) section and [docs/deployment.md](docs/deployment.md)
+for details and for the honest listing of what is *not* wired up (no REST route
+API, no frontend→backend bridge).
 
 **Phase 8 — Metro Route Visualization**
 

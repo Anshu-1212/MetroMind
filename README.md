@@ -4,9 +4,16 @@ Intelligent Metro Route Planner
 
 ## Overview
 
-MetroMind is a full-stack web application that models a metro network as a weighted graph and provides intelligent route planning. It combines graph-based pathfinding algorithms with an interactive user interface to help commuters find the best routes through a metro system.
+MetroMind is a full-stack web application that models a metro network as a weighted
+graph and provides intelligent route planning. It combines graph-based pathfinding
+algorithms with an interactive user interface to help commuters find the best routes
+through a metro system.
 
-The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and three routing algorithms: BFS (minimum station hops), Dijkstra (minimum distance or minimum travel time), and A* (minimum distance guided by a geographic heuristic).
+The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines,
+41 connections), a graph representation built from that data, three routing algorithms
+(BFS minimum hops, Dijkstra minimum distance or minimum travel time, and A* minimum
+distance guided by a Haversine geographic heuristic), and a Trie-based station-name
+search index for fast, case-insensitive station lookup and prefix autocomplete.
 
 ## Implemented Algorithms
 
@@ -14,6 +21,7 @@ The project currently contains a validated Delhi Metro dataset (42 stations, 2 l
 - **Dijkstra** — minimum distance (`RouteMetric.DISTANCE`)
 - **Dijkstra** — minimum travel time (`RouteMetric.TRAVEL_TIME`)
 - **A\*** — minimum distance using a geographic (Haversine) heuristic
+- **Trie** — case-insensitive station-name search and prefix autocomplete
 
 ## Planned Features
 
@@ -21,7 +29,6 @@ The project currently contains a validated Delhi Metro dataset (42 stations, 2 l
 
 - **Cheapest routing** — minimum-fare path computation
 - **Minimum-interchange routing** — routes that minimize line changes
-- **Trie-based station autocomplete** — fast, prefix-based station search
 - **Interactive metro map** — visual network representation
 - **Algorithm visualization** — step-by-step rendering of pathfinding algorithms
 - **Route comparison** — side-by-side evaluation of multiple route options
@@ -34,7 +41,7 @@ The project currently contains a validated Delhi Metro dataset (42 stations, 2 l
 |-------|------------|
 | Frontend | React, TypeScript, Vite |
 | Backend | Java, Spring Boot, Maven |
-| Algorithms | Graph Algorithms (BFS, Dijkstra, A\*) |
+| Algorithms | Graph Algorithms (BFS, Dijkstra, A\*), Trie Search |
 | Data Format | JSON |
 
 ## Project Structure
@@ -76,7 +83,7 @@ curl http://localhost:8080/api/health
 
 ## Current Status
 
-**Phase 6 — A\* Routing**
+**Phase 7 — Trie Station Search**
 
 The project now contains:
 - A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
@@ -87,5 +94,8 @@ The project now contains:
   - minimum travel time (minutes)
 - An A\* routing algorithm (Phase 6):
   - minimum distance, guided by the Haversine geographic heuristic
+- A Trie-based station-name search index (Phase 7):
+  - case-insensitive exact lookup and prefix search
+  - deterministic, case-insensitive autocomplete suggestions
 
-No Trie, REST route API, or frontend route UI are implemented yet.
+No REST route API or frontend route/search UI are implemented yet.

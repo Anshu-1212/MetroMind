@@ -6,19 +6,19 @@ Intelligent Metro Route Planner
 
 MetroMind is a full-stack web application that models a metro network as a weighted graph and provides intelligent route planning. It combines graph-based pathfinding algorithms with an interactive user interface to help commuters find the best routes through a metro system.
 
-The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and two routing algorithms: BFS (minimum station hops) and Dijkstra (minimum distance or minimum travel time).
+The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and three routing algorithms: BFS (minimum station hops), Dijkstra (minimum distance or minimum travel time), and A* (minimum distance guided by a geographic heuristic).
 
 ## Implemented Algorithms
 
 - **BFS** — minimum station hops
 - **Dijkstra** — minimum distance (`RouteMetric.DISTANCE`)
 - **Dijkstra** — minimum travel time (`RouteMetric.TRAVEL_TIME`)
+- **A\*** — minimum distance using a geographic (Haversine) heuristic
 
 ## Planned Features
 
 > These features are planned for future phases and are **not yet implemented**.
 
-- **A\* pathfinding** — heuristic-guided optimal routing
 - **Cheapest routing** — minimum-fare path computation
 - **Minimum-interchange routing** — routes that minimize line changes
 - **Trie-based station autocomplete** — fast, prefix-based station search
@@ -76,14 +76,16 @@ curl http://localhost:8080/api/health
 
 ## Current Status
 
-**Phase 5 — Dijkstra Routing**
+**Phase 6 — A\* Routing**
 
 The project now contains:
 - A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
 - A graph representation built from that data (bidirectional weighted adjacency list)
 - A BFS minimum-hop routing algorithm (Phase 4)
-- A Dijkstra routing algorithm with two independent objectives:
+- A Dijkstra routing algorithm with two independent objectives (Phase 5):
   - minimum distance (kilometres)
   - minimum travel time (minutes)
+- An A\* routing algorithm (Phase 6):
+  - minimum distance, guided by the Haversine geographic heuristic
 
-No A\*, Trie, REST route API, or frontend route UI are implemented yet.
+No Trie, REST route API, or frontend route UI are implemented yet.

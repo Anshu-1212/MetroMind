@@ -35,6 +35,20 @@
     </dependencies>
 
     <build>
+        <!-- Package the single source-of-truth dataset into the application JAR
+             (from the shared repo data/ directory, not a second copy) so the
+             routers load it in any working directory, including a deployed jar. -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/../data</directory>
+                <includes>
+                    <include>metro-network.json</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

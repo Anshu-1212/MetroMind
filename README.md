@@ -13,10 +13,11 @@ The project currently contains a validated Delhi Metro dataset (42 stations, 2 l
 41 connections), a graph representation built from that data, three routing algorithms
 (BFS minimum hops, Dijkstra minimum distance or minimum travel time, and A* minimum
 distance guided by a Haversine geographic heuristic), a Trie-based station-name
-search index for fast, case-insensitive station lookup and prefix autocomplete, and
-an interactive React frontend that visualises the network on an SVG metro map with
+search index for fast, case-insensitive station lookup and prefix autocomplete, an
+interactive React frontend that visualises the network on an SVG metro map with
 station search, source/destination selection, route and algorithm panels, and
-network statistics.
+network statistics, and a Spring Boot REST API (`POST /api/routes`) that exposes
+the routing algorithms to HTTP clients.
 
 ## Implemented Algorithms
 
@@ -27,6 +28,8 @@ network statistics.
 - **Trie** — case-insensitive station-name search and prefix autocomplete
 - **Route visualization** (frontend) — interactive SVG metro map, station search,
   source/destination selection, route and algorithm panels, and network statistics
+- **REST routing API** (backend) — `POST /api/routes` exposing BFS, Dijkstra, and A\*
+  over HTTP (see [docs/rest-api.md](docs/rest-api.md))
 
 ## Planned Features
 
@@ -91,9 +94,11 @@ MetroMind is a monorepo with two deployables that are currently **independent**
 
 ```
 Browser ──► Vercel (frontend, static)      Render (backend, Java service)
-                 │ bundles data/metro-network.json │  /api/health only
-                 │ runs client-side demo routers   │  routing not exposed
+                 │ bundles data/metro-network.json │  POST /api/routes (BFS/Dijkstra/A*)
+                 │ runs client-side demo routers   │  GET /api/health
                  └──────── no HTTP bridge ─────────┘
+                    backend REST bridge exists (Phase 10);
+                    the frontend does not call it yet
 ```
 
 - **Frontend → Vercel.** Project root `frontend/`; Vercel is auto-configured by
@@ -104,9 +109,12 @@ Browser ──► Vercel (frontend, static)      Render (backend, Java service)
   Java runtime (`rootDir: backend`, `mvn clean package`, then
   `java -jar target/metromind-backend-0.1.0.jar`; Java 21, Spring Boot 3.5).
   The server honors a platform-provided `PORT` (`server.port=${PORT:8080}`).
-- **Current API status: `GET /api/health` is the only endpoint.** There is no
-  REST routing API, and the deployed frontend does not call the backend —
-  its BFS / Dijkstra / A* views run the documented client-side demo routers.
+- **Current API status.** `GET /api/health` (health check) and the Phase 10
+  REST routing bridge, `POST /api/routes` — request/response schemas, supported
+  algorithms and metrics, and error codes are in
+  [docs/rest-api.md](docs/rest-api.md). The **deployed frontend does not call
+  the backend yet**: its BFS / Dijkstra / A* views still run the documented
+  client-side demo routers until the frontend↔API integration phase.
 
 **Production build commands:**
 
@@ -117,14 +125,24 @@ cd backend  && mvn clean package               # → backend/target/metromind-ba
 
 ## Current Status
 
+**Phase 10 — Spring Boot REST Routing API**
+
+The backend now exposes its routing through a small, strongly typed REST bridge:
+`POST /api/routes` accepts `{sourceId, destinationId, algorithm, metric}` and
+returns the path computed by the **real** existing Java algorithms (BFS minimum
+hops, Dijkstra minimum distance / travel time, A\* minimum distance) with derived
+journey totals, plus a consistent error model and per-origin CORS. See
+[docs/rest-api.md](docs/rest-api.md). This phase is **backend-only** — the React
+frontend is not connected to the API yet and keeps its client-side demo routing.
+
 **Phase 9 — Deployment & Production Readiness**
 
 The project is deployment-ready: the frontend builds for production (static, to
 be hosted on Vercel) and the backend builds a reproducible Spring Boot JAR
 (prepared for Render). The two are currently **independent** — see the
 [Deployment](#deployment) section and [docs/deployment.md](docs/deployment.md)
-for details and for the honest listing of what is *not* wired up (no REST route
-API, no frontend→backend bridge).
+for details and for the honest listing of what is *not* wired up (no
+frontend→backend bridge).
 
 **Phase 8 — Metro Route Visualization**
 
@@ -156,4 +174,5 @@ The project now contains:
 > browser. When a real backend bridge is added in a later phase, the same
 > uniform `RouteResult` shape means the visualization UI needs no changes.
 
-No REST route API or backend↔frontend integration is implemented yet.
+The backend REST routing bridge now exists (Phase 10), but the frontend is not
+connected to it yet — backend↔frontend integration is still not implemented.

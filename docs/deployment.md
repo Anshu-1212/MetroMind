@@ -2,7 +2,10 @@
 
 Phase 9 covers deployment configuration for both halves of the monorepo. This
 document says exactly what is deployed, how to deploy each part, and — just as
-importantly — what is **not** wired together yet.
+importantly — what is **not** wired together yet. Phase 10 added a backend REST
+routing bridge (`POST /api/routes`, see [rest-api.md](rest-api.md)); the
+**frontend still does not call the backend**, so the two deployables remain
+independent from the browser's point of view.
 
 ## 1. Architecture
 
@@ -18,7 +21,8 @@ importantly — what is **not** wired together yet.
                                   │
                        ┌────────────────────────────┐
                        │  Render (Java service)     │
-        /api/health  ◄─┤  Spring Boot 3.5 · Java 21 │
+  GET /api/health  ◄───┤  Spring Boot 3.5 · Java 21 │
+  POST /api/routes ◄───┤  REST bridge (Phase 10)    │
                        └────────────────────────────┘
 ```
 
@@ -28,14 +32,14 @@ Two independent deployables share one Git repository:
   the network directly from the bundled `data/metro-network.json` and runs
   **client-side demo routers** (`frontend/src/network/routing.ts`) for
   BFS / Dijkstra / A*. It needs **no server and no environment variables**.
-- **Backend** — a Spring Boot service. Today it exposes **one endpoint**,
-  `GET /api/health`. The Java routing algorithms (BFS, Dijkstra, A*) and the Trie
-  search index exist but are **not reachable over HTTP**.
+- **Backend** — a Spring Boot service. It exposes `GET /api/health` and the
+  Phase 10 REST routing bridge, `POST /api/routes`, which dispatches to the
+  **real** Java routing algorithms (BFS, Dijkstra, A*) over the same dataset.
 
-There is **no REST bridge** between the frontend and the backend: the deployed
-frontend does not call the backend, and the backend's routing algorithms are not
-exposed. This is a deliberate, documented gap (`docs/route-visualization.md`),
-not a misconfiguration.
+The **frontend is not wired to the backend**: the deployed frontend does not call
+the API and keeps its client-side demo routers. The backend bridge exists and is
+fully tested; frontend↔API integration is reserved for a later phase (see
+`docs/route-visualization.md`).
 
 ## 2. Frontend — Vercel
 
@@ -104,18 +108,26 @@ database. `mvn clean test` is runnable on any machine with JDK 21 + Maven.
 - **Frontend:** none. The dataset is bundled, not fetched. No `VITE_*`
   variables are read, so no `.env`/`.env.example` is needed.
 - **Backend:** none required. `PORT` is optional and defaults to `8080`.
+  `app.cors.allowed-origins` is optional and defaults to the Vite dev origin
+  (`http://localhost:5173`); set it to the deployed frontend's origin when the
+  frontend starts calling the API.
 
 If future phases introduce `VITE_*` variables, Vercel supports them through its
 environment-variable UI; a `.env.example` would be added then.
 
 ## 5. Current backend API status
 
-- `GET /api/health` — the **only** public endpoint. Returns service name/status.
-- **No** route endpoints (`/api/routes`, search, etc.) exist or are mocked.
-- The frontend **does not** call the backend, so no CORS configuration is
-  currently needed and none is present.
-
-Do not assume any routing endpoint exists until a later phase adds one.
+- `GET /api/health` — health check. Returns service name/status.
+- `POST /api/routes` — **the Phase 10 routing bridge.** Parses
+  `{sourceId, destinationId, algorithm, metric}`, validates the request, and runs
+  the **real** Java BFS / Dijkstra / A* routers over the single
+  `data/metro-network.json`. Full request/response/error contract:
+  [rest-api.md](rest-api.md).
+- CORS: per-origin allowlist via `app.cors.allowed-origins` (default
+  `http://localhost:5173`), methods `GET`/`POST`, mapped to `/api/**`. No
+  permissive wildcard.
+- The **frontend does not call any backend endpoint** yet — this is deliberate
+  and documented.
 
 ## 6. Local workflow
 
@@ -133,7 +145,7 @@ npm run lint          # oxlint
 cd backend
 mvn spring-boot:run   # starts on http://localhost:8080
 mvn clean package     # builds target/metromind-backend-0.1.0.jar
-mvn clean test        # full test suite (177 tests)
+mvn clean test        # full test suite (202 tests)
 ```
 
 > Tip: a `NODE_ENV=production` shell overrides npm's install behaviour and
@@ -142,10 +154,13 @@ mvn clean test        # full test suite (177 tests)
 
 ## 7. Current limitations (honest list)
 
-- **No REST routing API** — the deployed frontend shows routes computed by its
-  own browser-side demo routers; it does **not** call the Java algorithms.
+- **The frontend does not call the backend REST bridge yet** — the deployed
+  frontend still shows routes computed by its own browser-side demo routers.
+  The `POST /api/routes` bridge exists and is tested, but no frontend code calls
+  it (Phase 10 is backend-only by design).
 - **No authentication, database, live metro data, maps, or geolocation.**
-- Backend exposes only `/api/health`; the Java graph/routing/search code is
-  library code and is unit-tested but not accessible from the network.
+- Backend exposes only `/api/health` and `POST /api/routes`. The Trie
+  station-name search index is library code and is **not** exposed over HTTP.
+  No other endpoints exist or are mocked.
 - The dataset is a 42-station subset of the Delhi Metro (documented in
   `data/SOURCES.md`).

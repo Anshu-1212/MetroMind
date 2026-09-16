@@ -6,13 +6,18 @@ Intelligent Metro Route Planner
 
 MetroMind is a full-stack web application that models a metro network as a weighted graph and provides intelligent route planning. It combines graph-based pathfinding algorithms with an interactive user interface to help commuters find the best routes through a metro system.
 
-The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and a BFS-based minimum-hop routing algorithm.
+The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and two routing algorithms: BFS (minimum station hops) and Dijkstra (minimum distance or minimum travel time).
+
+## Implemented Algorithms
+
+- **BFS** — minimum station hops
+- **Dijkstra** — minimum distance (`RouteMetric.DISTANCE`)
+- **Dijkstra** — minimum travel time (`RouteMetric.TRAVEL_TIME`)
 
 ## Planned Features
 
 > These features are planned for future phases and are **not yet implemented**.
 
-- **Dijkstra route optimization** — shortest-distance and fastest routes
 - **A\* pathfinding** — heuristic-guided optimal routing
 - **Cheapest routing** — minimum-fare path computation
 - **Minimum-interchange routing** — routes that minimize line changes
@@ -71,11 +76,14 @@ curl http://localhost:8080/api/health
 
 ## Current Status
 
-**Phase 4 — BFS Routing**
+**Phase 5 — Dijkstra Routing**
 
 The project now contains:
 - A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
-- A graph representation built from that data (bidirectional adjacency list)
-- A BFS minimum-hop routing algorithm with path reconstruction
+- A graph representation built from that data (bidirectional weighted adjacency list)
+- A BFS minimum-hop routing algorithm (Phase 4)
+- A Dijkstra routing algorithm with two independent objectives:
+  - minimum distance (kilometres)
+  - minimum travel time (minutes)
 
-No weighted routing (Dijkstra, A\*), no REST route API, and no frontend route UI are implemented yet.
+No A\*, Trie, REST route API, or frontend route UI are implemented yet.

@@ -6,11 +6,12 @@ Intelligent Metro Route Planner
 
 MetroMind is a full-stack web application that models a metro network as a weighted graph and provides intelligent route planning. It combines graph-based pathfinding algorithms with an interactive user interface to help commuters find the best routes through a metro system.
 
+The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines), a graph representation built from that data, and a BFS-based minimum-hop routing algorithm.
+
 ## Planned Features
 
 > These features are planned for future phases and are **not yet implemented**.
 
-- **BFS route finding** — unweighted shortest path exploration
 - **Dijkstra route optimization** — shortest-distance and fastest routes
 - **A\* pathfinding** — heuristic-guided optimal routing
 - **Cheapest routing** — minimum-fare path computation
@@ -70,6 +71,11 @@ curl http://localhost:8080/api/health
 
 ## Current Status
 
-**Phase 1 — Project Foundation**
+**Phase 4 — BFS Routing**
 
-The monorepo structure, frontend scaffold, backend skeleton, and documentation placeholders are in place. No routing algorithms or metro data have been implemented yet.
+The project now contains:
+- A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
+- A graph representation built from that data (bidirectional adjacency list)
+- A BFS minimum-hop routing algorithm with path reconstruction
+
+No weighted routing (Dijkstra, A\*), no REST route API, and no frontend route UI are implemented yet.

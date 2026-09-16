@@ -1,0 +1,699 @@
+{
+  "network": {
+    "name": "Delhi Metro",
+    "version": "1.0",
+    "description": "Starter dataset covering a subset of the Delhi Metro network — Yellow Line and Blue Line segments with Rajiv Chowk interchange. This dataset contains 42 of the 243+ Delhi Metro stations. Several intermediate stations are omitted on the Blue Line and are documented in SOURCES.md.",
+    "totalStations": 42,
+    "totalLines": 2,
+    "totalConnections": 41
+  },
+  "stations": [
+    {
+      "id": "SAMAYPUR_BADLI",
+      "name": "Samaypur Badli",
+      "latitude": 28.7446,
+      "longitude": 77.1383,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "ROHINI_SECTOR_18_19",
+      "name": "Rohini Sector 18, 19",
+      "latitude": 28.7384,
+      "longitude": 77.1399,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "HAIDERPUR_BADLI_MOR",
+      "name": "Haiderpur Badli Mor",
+      "latitude": 28.7299,
+      "longitude": 77.1491,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "JAHANGIRPURI",
+      "name": "Jahangirpuri",
+      "latitude": 28.7170,
+      "longitude": 77.1690,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "ADARSH_NAGAR",
+      "name": "Adarsh Nagar",
+      "latitude": 28.7120,
+      "longitude": 77.1760,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "AZADPUR",
+      "name": "Azadpur",
+      "latitude": 28.7070,
+      "longitude": 77.1804,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "VISHWAVIDYALAYA",
+      "name": "Vishwavidyalaya",
+      "latitude": 28.6878,
+      "longitude": 77.2085,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "VIDHAN_SABHA",
+      "name": "Vidhan Sabha",
+      "latitude": 28.6784,
+      "longitude": 77.2126,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "CIVIL_LINES",
+      "name": "Civil Lines",
+      "latitude": 28.6733,
+      "longitude": 77.2192,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "KASHMERE_GATE",
+      "name": "Kashmere Gate",
+      "latitude": 28.6674,
+      "longitude": 77.2282,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "CHANDNI_CHOWK",
+      "name": "Chandni Chowk",
+      "latitude": 28.6505,
+      "longitude": 77.2303,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "CHAWRI_BAZAR",
+      "name": "Chawri Bazar",
+      "latitude": 28.6443,
+      "longitude": 77.2248,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "NEW_DELHI",
+      "name": "New Delhi",
+      "latitude": 28.6435,
+      "longitude": 77.2227,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "RAJIV_CHOWK",
+      "name": "Rajiv Chowk",
+      "latitude": 28.6327,
+      "longitude": 77.2193,
+      "lines": ["YELLOW", "BLUE"],
+      "interchange": true
+    },
+    {
+      "id": "PATEL_CHOWK",
+      "name": "Patel Chowk",
+      "latitude": 28.6246,
+      "longitude": 77.2129,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "CENTRAL_SECRETARIAT",
+      "name": "Central Secretariat",
+      "latitude": 28.6159,
+      "longitude": 77.2123,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "UDYOG_BHAWAN",
+      "name": "Udyog Bhawan",
+      "latitude": 28.6087,
+      "longitude": 77.2105,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "LOK_KALYAN_MARG",
+      "name": "Lok Kalyan Marg",
+      "latitude": 28.6007,
+      "longitude": 77.2086,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "JOR_BAGH",
+      "name": "Jor Bagh",
+      "latitude": 28.5894,
+      "longitude": 77.2160,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "DILLI_HAAT_INA",
+      "name": "Dilli Haat - INA",
+      "latitude": 28.5742,
+      "longitude": 77.2093,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "HAUZ_KHAS",
+      "name": "Hauz Khas",
+      "latitude": 28.5443,
+      "longitude": 77.2067,
+      "lines": ["YELLOW"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_21",
+      "name": "Dwarka Sector 21",
+      "latitude": 28.5519,
+      "longitude": 77.0586,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_8",
+      "name": "Dwarka Sector 8",
+      "latitude": 28.5656,
+      "longitude": 77.0670,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_9",
+      "name": "Dwarka Sector 9",
+      "latitude": 28.5743,
+      "longitude": 77.0653,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_10",
+      "name": "Dwarka Sector 10",
+      "latitude": 28.5811,
+      "longitude": 77.0575,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_11",
+      "name": "Dwarka Sector 11",
+      "latitude": 28.5864,
+      "longitude": 77.0494,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_12",
+      "name": "Dwarka Sector 12",
+      "latitude": 28.5922,
+      "longitude": 77.0407,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_SECTOR_14",
+      "name": "Dwarka Sector 14",
+      "latitude": 28.6022,
+      "longitude": 77.0260,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "DWARKA_MOR",
+      "name": "Dwarka Mor",
+      "latitude": 28.6193,
+      "longitude": 77.0333,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "NAWADA",
+      "name": "Nawada",
+      "latitude": 28.6203,
+      "longitude": 77.0451,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "UTTAM_NAGAR_WEST",
+      "name": "Uttam Nagar West",
+      "latitude": 28.6218,
+      "longitude": 77.0557,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "UTTAM_NAGAR_EAST",
+      "name": "Uttam Nagar East",
+      "latitude": 28.6248,
+      "longitude": 77.0653,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "JANAKPURI_WEST",
+      "name": "Janakpuri West",
+      "latitude": 28.6289,
+      "longitude": 77.0780,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "PATEL_NAGAR",
+      "name": "Patel Nagar",
+      "latitude": 28.6450,
+      "longitude": 77.1693,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "RAJENDRA_PLACE",
+      "name": "Rajendra Place",
+      "latitude": 28.6425,
+      "longitude": 77.1783,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "SHADIPUR",
+      "name": "Shadipur",
+      "latitude": 28.6516,
+      "longitude": 77.1583,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "MOTI_NAGAR",
+      "name": "Moti Nagar",
+      "latitude": 28.6579,
+      "longitude": 77.1424,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "KIRTI_NAGAR",
+      "name": "Kirti Nagar",
+      "latitude": 28.6557,
+      "longitude": 77.1507,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "RAMAKRISHNA_ASHRAM_MARG",
+      "name": "Ramakrishna Ashram Marg",
+      "latitude": 28.6392,
+      "longitude": 77.2086,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "JHANDEWALAN",
+      "name": "Jhandewalan",
+      "latitude": 28.6443,
+      "longitude": 77.1999,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "KAROL_BAGH",
+      "name": "Karol Bagh",
+      "latitude": 28.6440,
+      "longitude": 77.1885,
+      "lines": ["BLUE"],
+      "interchange": false
+    },
+    {
+      "id": "ANAND_VIHAR",
+      "name": "Anand Vihar",
+      "latitude": 28.6468,
+      "longitude": 77.3159,
+      "lines": ["BLUE"],
+      "interchange": false
+    }
+  ],
+  "lines": [
+    {
+      "id": "YELLOW",
+      "name": "Yellow Line",
+      "color": "#FFCC00",
+      "stations": [
+        "SAMAYPUR_BADLI",
+        "ROHINI_SECTOR_18_19",
+        "HAIDERPUR_BADLI_MOR",
+        "JAHANGIRPURI",
+        "ADARSH_NAGAR",
+        "AZADPUR",
+        "VISHWAVIDYALAYA",
+        "VIDHAN_SABHA",
+        "CIVIL_LINES",
+        "KASHMERE_GATE",
+        "CHANDNI_CHOWK",
+        "CHAWRI_BAZAR",
+        "NEW_DELHI",
+        "RAJIV_CHOWK",
+        "PATEL_CHOWK",
+        "CENTRAL_SECRETARIAT",
+        "UDYOG_BHAWAN",
+        "LOK_KALYAN_MARG",
+        "JOR_BAGH",
+        "DILLI_HAAT_INA",
+        "HAUZ_KHAS"
+      ]
+    },
+    {
+      "id": "BLUE",
+      "name": "Blue Line",
+      "color": "#0078BF",
+      "stations": [
+        "DWARKA_SECTOR_21",
+        "DWARKA_SECTOR_8",
+        "DWARKA_SECTOR_9",
+        "DWARKA_SECTOR_10",
+        "DWARKA_SECTOR_11",
+        "DWARKA_SECTOR_12",
+        "DWARKA_SECTOR_14",
+        "DWARKA_MOR",
+        "NAWADA",
+        "UTTAM_NAGAR_WEST",
+        "UTTAM_NAGAR_EAST",
+        "JANAKPURI_WEST",
+        "PATEL_NAGAR",
+        "RAJENDRA_PLACE",
+        "SHADIPUR",
+        "MOTI_NAGAR",
+        "KIRTI_NAGAR",
+        "RAMAKRISHNA_ASHRAM_MARG",
+        "JHANDEWALAN",
+        "KAROL_BAGH",
+        "RAJIV_CHOWK",
+        "ANAND_VIHAR"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "SAMAYPUR_BADLI",
+      "to": "ROHINI_SECTOR_18_19",
+      "line": "YELLOW",
+      "distanceKm": 0.7,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "ROHINI_SECTOR_18_19",
+      "to": "HAIDERPUR_BADLI_MOR",
+      "line": "YELLOW",
+      "distanceKm": 1.3,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "HAIDERPUR_BADLI_MOR",
+      "to": "JAHANGIRPURI",
+      "line": "YELLOW",
+      "distanceKm": 2.4,
+      "travelTimeMinutes": 4
+    },
+    {
+      "from": "JAHANGIRPURI",
+      "to": "ADARSH_NAGAR",
+      "line": "YELLOW",
+      "distanceKm": 0.9,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "ADARSH_NAGAR",
+      "to": "AZADPUR",
+      "line": "YELLOW",
+      "distanceKm": 0.7,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "AZADPUR",
+      "to": "VISHWAVIDYALAYA",
+      "line": "YELLOW",
+      "distanceKm": 3.5,
+      "travelTimeMinutes": 5
+    },
+    {
+      "from": "VISHWAVIDYALAYA",
+      "to": "VIDHAN_SABHA",
+      "line": "YELLOW",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "VIDHAN_SABHA",
+      "to": "CIVIL_LINES",
+      "line": "YELLOW",
+      "distanceKm": 0.9,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "CIVIL_LINES",
+      "to": "KASHMERE_GATE",
+      "line": "YELLOW",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "KASHMERE_GATE",
+      "to": "CHANDNI_CHOWK",
+      "line": "YELLOW",
+      "distanceKm": 1.9,
+      "travelTimeMinutes": 3
+    },
+    {
+      "from": "CHANDNI_CHOWK",
+      "to": "CHAWRI_BAZAR",
+      "line": "YELLOW",
+      "distanceKm": 0.9,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "CHAWRI_BAZAR",
+      "to": "NEW_DELHI",
+      "line": "YELLOW",
+      "distanceKm": 0.2,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "NEW_DELHI",
+      "to": "RAJIV_CHOWK",
+      "line": "YELLOW",
+      "distanceKm": 1.2,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "RAJIV_CHOWK",
+      "to": "PATEL_CHOWK",
+      "line": "YELLOW",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "PATEL_CHOWK",
+      "to": "CENTRAL_SECRETARIAT",
+      "line": "YELLOW",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "CENTRAL_SECRETARIAT",
+      "to": "UDYOG_BHAWAN",
+      "line": "YELLOW",
+      "distanceKm": 0.8,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "UDYOG_BHAWAN",
+      "to": "LOK_KALYAN_MARG",
+      "line": "YELLOW",
+      "distanceKm": 0.9,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "LOK_KALYAN_MARG",
+      "to": "JOR_BAGH",
+      "line": "YELLOW",
+      "distanceKm": 1.4,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "JOR_BAGH",
+      "to": "DILLI_HAAT_INA",
+      "line": "YELLOW",
+      "distanceKm": 1.8,
+      "travelTimeMinutes": 3
+    },
+    {
+      "from": "DILLI_HAAT_INA",
+      "to": "HAUZ_KHAS",
+      "line": "YELLOW",
+      "distanceKm": 3.3,
+      "travelTimeMinutes": 5
+    },
+    {
+      "from": "DWARKA_SECTOR_21",
+      "to": "DWARKA_SECTOR_8",
+      "line": "BLUE",
+      "distanceKm": 1.7,
+      "travelTimeMinutes": 3
+    },
+    {
+      "from": "DWARKA_SECTOR_8",
+      "to": "DWARKA_SECTOR_9",
+      "line": "BLUE",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "DWARKA_SECTOR_9",
+      "to": "DWARKA_SECTOR_10",
+      "line": "BLUE",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "DWARKA_SECTOR_10",
+      "to": "DWARKA_SECTOR_11",
+      "line": "BLUE",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "DWARKA_SECTOR_11",
+      "to": "DWARKA_SECTOR_12",
+      "line": "BLUE",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "DWARKA_SECTOR_12",
+      "to": "DWARKA_SECTOR_14",
+      "line": "BLUE",
+      "distanceKm": 1.8,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "DWARKA_SECTOR_14",
+      "to": "DWARKA_MOR",
+      "line": "BLUE",
+      "distanceKm": 2.0,
+      "travelTimeMinutes": 3
+    },
+    {
+      "from": "DWARKA_MOR",
+      "to": "NAWADA",
+      "line": "BLUE",
+      "distanceKm": 1.2,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "NAWADA",
+      "to": "UTTAM_NAGAR_WEST",
+      "line": "BLUE",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "UTTAM_NAGAR_WEST",
+      "to": "UTTAM_NAGAR_EAST",
+      "line": "BLUE",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "UTTAM_NAGAR_EAST",
+      "to": "JANAKPURI_WEST",
+      "line": "BLUE",
+      "distanceKm": 1.3,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "JANAKPURI_WEST",
+      "to": "PATEL_NAGAR",
+      "line": "BLUE",
+      "distanceKm": 9.1,
+      "travelTimeMinutes": 14,
+      "note": "Several intermediate stations omitted (see SOURCES.md)"
+    },
+    {
+      "from": "PATEL_NAGAR",
+      "to": "RAJENDRA_PLACE",
+      "line": "BLUE",
+      "distanceKm": 0.9,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "RAJENDRA_PLACE",
+      "to": "SHADIPUR",
+      "line": "BLUE",
+      "distanceKm": 2.2,
+      "travelTimeMinutes": 3
+    },
+    {
+      "from": "SHADIPUR",
+      "to": "MOTI_NAGAR",
+      "line": "BLUE",
+      "distanceKm": 1.7,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "MOTI_NAGAR",
+      "to": "KIRTI_NAGAR",
+      "line": "BLUE",
+      "distanceKm": 0.8,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "KIRTI_NAGAR",
+      "to": "RAMAKRISHNA_ASHRAM_MARG",
+      "line": "BLUE",
+      "distanceKm": 5.9,
+      "travelTimeMinutes": 8,
+      "note": "Several intermediate stations omitted (see SOURCES.md)"
+    },
+    {
+      "from": "RAMAKRISHNA_ASHRAM_MARG",
+      "to": "JHANDEWALAN",
+      "line": "BLUE",
+      "distanceKm": 1.0,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "JHANDEWALAN",
+      "to": "KAROL_BAGH",
+      "line": "BLUE",
+      "distanceKm": 1.1,
+      "travelTimeMinutes": 2
+    },
+    {
+      "from": "KAROL_BAGH",
+      "to": "RAJIV_CHOWK",
+      "line": "BLUE",
+      "distanceKm": 3.3,
+      "travelTimeMinutes": 5
+    },
+    {
+      "from": "RAJIV_CHOWK",
+      "to": "ANAND_VIHAR",
+      "line": "BLUE",
+      "distanceKm": 9.6,
+      "travelTimeMinutes": 13,
+      "note": "Several intermediate stations omitted (see SOURCES.md)"
+    }
+  ]
+}

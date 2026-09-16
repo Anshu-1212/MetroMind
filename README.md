@@ -12,8 +12,11 @@ through a metro system.
 The project currently contains a validated Delhi Metro dataset (42 stations, 2 lines,
 41 connections), a graph representation built from that data, three routing algorithms
 (BFS minimum hops, Dijkstra minimum distance or minimum travel time, and A* minimum
-distance guided by a Haversine geographic heuristic), and a Trie-based station-name
-search index for fast, case-insensitive station lookup and prefix autocomplete.
+distance guided by a Haversine geographic heuristic), a Trie-based station-name
+search index for fast, case-insensitive station lookup and prefix autocomplete, and
+an interactive React frontend that visualises the network on an SVG metro map with
+station search, source/destination selection, route and algorithm panels, and
+network statistics.
 
 ## Implemented Algorithms
 
@@ -22,6 +25,8 @@ search index for fast, case-insensitive station lookup and prefix autocomplete.
 - **Dijkstra** — minimum travel time (`RouteMetric.TRAVEL_TIME`)
 - **A\*** — minimum distance using a geographic (Haversine) heuristic
 - **Trie** — case-insensitive station-name search and prefix autocomplete
+- **Route visualization** (frontend) — interactive SVG metro map, station search,
+  source/destination selection, route and algorithm panels, and network statistics
 
 ## Planned Features
 
@@ -29,11 +34,8 @@ search index for fast, case-insensitive station lookup and prefix autocomplete.
 
 - **Cheapest routing** — minimum-fare path computation
 - **Minimum-interchange routing** — routes that minimize line changes
-- **Interactive metro map** — visual network representation
-- **Algorithm visualization** — step-by-step rendering of pathfinding algorithms
 - **Route comparison** — side-by-side evaluation of multiple route options
 - **Service disruption handling** — dynamic rerouting around closed lines or stations
-- **Route analytics** — statistics on travel time, distance, and cost
 
 ## Tech Stack
 
@@ -83,7 +85,7 @@ curl http://localhost:8080/api/health
 
 ## Current Status
 
-**Phase 7 — Trie Station Search**
+**Phase 8 — Metro Route Visualization**
 
 The project now contains:
 - A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
@@ -97,5 +99,20 @@ The project now contains:
 - A Trie-based station-name search index (Phase 7):
   - case-insensitive exact lookup and prefix search
   - deterministic, case-insensitive autocomplete suggestions
+- An interactive React/TypeScript frontend (Phase 8):
+  - SVG metro map with zoom, pan, and click-to-select (loads the shared
+    `data/metro-network.json` at build time — single source of truth)
+  - dataset-backed station search with autocomplete (no Trie reimplementation)
+  - source/destination selection with swap and reset
+  - route panel: sequence, hops, distance, travel time
+  - reusable algorithm-visualization UI for BFS / Dijkstra / A*
+  - network statistics panel (stations, connections, lines, interchange, route)
 
-No REST route API or frontend route/search UI are implemented yet.
+> **Frontend routing caveat.** The BFS / Dijkstra / A* results drawn in the
+> frontend come from clearly separated, documented client-side *demo* routers
+> (`frontend/src/network/routing.ts`), not from the Java implementations — no
+> REST API exists yet, so the backend algorithms are not reachable from the
+> browser. When a real backend bridge is added in a later phase, the same
+> uniform `RouteResult` shape means the visualization UI needs no changes.
+
+No REST route API or backend↔frontend integration is implemented yet.

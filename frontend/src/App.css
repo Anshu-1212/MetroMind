@@ -1,0 +1,22 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hero {
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #555;
+  margin-top: 0.5rem;
+}

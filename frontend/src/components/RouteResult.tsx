@@ -1,5 +1,5 @@
 import type { NetworkView } from '../network/graph'
-import type { RouteResult } from '../network/routing'
+import type { RouteResult } from '../api/routeResult'
 
 interface RouteResultProps {
   view: NetworkView
@@ -8,13 +8,12 @@ interface RouteResultProps {
 
 /**
  * Displays a route — its station sequence and the journey totals — for a single
- * {@link RouteResult}. Rendered several times (once per demo algorithm) and
- * given a "primary" treatment for whichever algorithm the user is inspecting.
+ * {@link RouteResult}. Rendered for whichever algorithm is being inspected and
+ * given a "primary" treatment in the route panel.
  *
  * <p>The component is purely presentational: it decides nothing, spawns no
- * routes, and defers all computation to the caller that produced {@code result}.
- * This keeps it reusable as a thin, honest display layer that a future backend
- * integration could feed with identical-shaped data.</p>
+ * routes, and renders whatever {@link RouteResult} the caller produced from the
+ * backend routing API.</p>
  */
 export default function RouteResult({ view, result }: RouteResultProps) {
   const stations = result.stationIds

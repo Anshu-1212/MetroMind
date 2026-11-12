@@ -20,8 +20,9 @@
  *
  * <p>This module is pure TypeScript: no React, no DOM, no browser APIs. It is
  * also intentionally independent of the <em>routing</em> implementation — route
- * computation lives in {@code routing.ts} and only consumes the derived
- * adjacency produced here. The two never call each other.</p>
+ * computation happens in the backend (Phase 10 REST API,
+ * {@code src/api/routes.ts}); everything here only consumes the derived
+ * adjacency that the UI needs to render. The two never call each other.</p>
  */
 
 import type {

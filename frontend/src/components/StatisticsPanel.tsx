@@ -1,5 +1,5 @@
 import type { NetworkView } from '../network/graph'
-import type { RouteResult } from '../network/routing'
+import type { RouteResult } from '../api/routeResult'
 
 interface StatisticsPanelProps {
   view: NetworkView

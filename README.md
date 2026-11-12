@@ -88,33 +88,26 @@ curl http://localhost:8080/api/health
 
 ## Deployment
 
-MetroMind is a monorepo with two deployables that are currently **independent**
-— the frontend does not call the backend. Full details in
-[docs/deployment.md](docs/deployment.md).
+MetroMind is a monorepo with two deployables.
 
 ```
 Browser ──► Vercel (frontend, static)      Render (backend, Java service)
                  │ bundles data/metro-network.json │  POST /api/routes (BFS/Dijkstra/A*)
-                 │ runs client-side demo routers   │  GET /api/health
-                 └──────── no HTTP bridge ─────────┘
-                    backend REST bridge exists (Phase 10);
-                    the frontend does not call it yet
+                 │ calls API via fetch()           │  GET /api/health
+                 └─────────── API bridge ──────────┘
 ```
 
 - **Frontend → Vercel.** Project root `frontend/`; Vercel is auto-configured by
-  the repo-root [vercel.json](vercel.json) (`rootDirectory: "frontend"`,
-  `buildCommand: "npm run build"`, `outputDirectory: "dist"`). The network
-  dataset is bundled into the build, so **no environment variables are needed**.
+  the repo-root [vercel.json](vercel.json). The network dataset is bundled into the
+  build, so no backend-network-load is needed. The API base URL is configured via
+  `VITE_API_BASE_URL`.
 - **Backend → Render.** Prepared in [render.yaml](render.yaml) using Render's
-  Java runtime (`rootDir: backend`, `mvn clean package`, then
-  `java -jar target/metromind-backend-0.1.0.jar`; Java 21, Spring Boot 3.5).
-  The server honors a platform-provided `PORT` (`server.port=${PORT:8080}`).
-- **Current API status.** `GET /api/health` (health check) and the Phase 10
-  REST routing bridge, `POST /api/routes` — request/response schemas, supported
-  algorithms and metrics, and error codes are in
-  [docs/rest-api.md](docs/rest-api.md). The **deployed frontend does not call
-  the backend yet**: its BFS / Dijkstra / A* views still run the documented
-  client-side demo routers until the frontend↔API integration phase.
+  Java runtime. The server honors a platform-provided `PORT`
+  (`server.port=${PORT:8080}`).
+- **Current API status.** `GET /api/health` and the REST routing bridge
+  `POST /api/routes` — request/response schemas, supported algorithms, and metrics
+  are in [docs/rest-api.md](docs/rest-api.md). The frontend communicates with the
+  backend through the `POST /api/routes` endpoint.
 
 **Production build commands:**
 
@@ -125,54 +118,27 @@ cd backend  && mvn clean package               # → backend/target/metromind-ba
 
 ## Current Status
 
+**Phase 11 — Frontend/Backend Integration**
+
+The frontend is now fully integrated with the Spring Boot REST API. All routing
+algorithms (BFS, Dijkstra, A*) are computed on the backend and fetched via
+`POST /api/routes`.
+
 **Phase 10 — Spring Boot REST Routing API**
 
-The backend now exposes its routing through a small, strongly typed REST bridge:
+The backend exposes its routing through a strongly typed REST bridge:
 `POST /api/routes` accepts `{sourceId, destinationId, algorithm, metric}` and
-returns the path computed by the **real** existing Java algorithms (BFS minimum
-hops, Dijkstra minimum distance / travel time, A\* minimum distance) with derived
-journey totals, plus a consistent error model and per-origin CORS. See
-[docs/rest-api.md](docs/rest-api.md). This phase is **backend-only** — the React
-frontend is not connected to the API yet and keeps its client-side demo routing.
+returns the path computed by the real Java algorithms. See
+[docs/rest-api.md](docs/rest-api.md).
 
 **Phase 9 — Deployment & Production Readiness**
 
 The project is deployment-ready: the frontend builds for production (static, to
 be hosted on Vercel) and the backend builds a reproducible Spring Boot JAR
-(prepared for Render). The two are currently **independent** — see the
-[Deployment](#deployment) section and [docs/deployment.md](docs/deployment.md)
-for details and for the honest listing of what is *not* wired up (no
-frontend→backend bridge).
+(prepared for Render). CORS is configured to allow the frontend to call the
+backend API.
 
 **Phase 8 — Metro Route Visualization**
 
-The project now contains:
-- A validated Delhi Metro dataset (42 stations, 2 lines, 41 connections)
-- A graph representation built from that data (bidirectional weighted adjacency list)
-- A BFS minimum-hop routing algorithm (Phase 4)
-- A Dijkstra routing algorithm with two independent objectives (Phase 5):
-  - minimum distance (kilometres)
-  - minimum travel time (minutes)
-- An A\* routing algorithm (Phase 6):
-  - minimum distance, guided by the Haversine geographic heuristic
-- A Trie-based station-name search index (Phase 7):
-  - case-insensitive exact lookup and prefix search
-  - deterministic, case-insensitive autocomplete suggestions
-- An interactive React/TypeScript frontend (Phase 8):
-  - SVG metro map with zoom, pan, and click-to-select (loads the shared
-    `data/metro-network.json` at build time — single source of truth)
-  - dataset-backed station search with autocomplete (no Trie reimplementation)
-  - source/destination selection with swap and reset
-  - route panel: sequence, hops, distance, travel time
-  - reusable algorithm-visualization UI for BFS / Dijkstra / A*
-  - network statistics panel (stations, connections, lines, interchange, route)
-
-> **Frontend routing caveat.** The BFS / Dijkstra / A* results drawn in the
-> frontend come from clearly separated, documented client-side *demo* routers
-> (`frontend/src/network/routing.ts`), not from the Java implementations — no
-> REST API exists yet, so the backend algorithms are not reachable from the
-> browser. When a real backend bridge is added in a later phase, the same
-> uniform `RouteResult` shape means the visualization UI needs no changes.
-
-The backend REST routing bridge now exists (Phase 10), but the frontend is not
-connected to it yet — backend↔frontend integration is still not implemented.
+The project contains an SVG metro map, station search, source/destination
+selection, and algorithm/statistics panels, now backed by the real backend API.

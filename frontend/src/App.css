@@ -207,13 +207,34 @@
   padding: 1rem;
 }
 
-.demo-tag {
+.api-tag {
   font-size: 0.72rem;
   color: var(--accent);
   background: var(--accent-soft);
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
   font-weight: 600;
+}
+
+.route-loading,
+.route-error {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding: 0.25rem 0;
+}
+
+.route-error {
+  color: var(--danger, #dc2626);
+}
+
+.algorithm-loading,
+.algorithm-error {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.algorithm-error {
+  color: var(--danger, #dc2626);
 }
 
 .route-source-target {

@@ -1,5 +1,5 @@
 import type { NetworkView } from '../network/graph'
-import type { RouteResult } from '../network/routing'
+import type { RouteResult } from '../api/routeResult'
 
 /** One algorithm run as handed to the visualisation component. */
 export interface AlgorithmRun {
@@ -9,8 +9,12 @@ export interface AlgorithmRun {
   name: string
   /** Objective label (e.g. {@code "min hops"}). */
   objective: string
-  /** The run's result — null until a route has been computed. */
+  /** Lifecycle of this run's query against the backend. */
+  state: 'idle' | 'loading' | 'ready' | 'error'
+  /** The run's result — only when {@code state} is {@code "ready"}. */
   result: RouteResult | null
+  /** Friendly message — only when {@code state} is {@code "error"}. */
+  error?: string
 }
 
 interface AlgorithmPanelProps {
@@ -27,12 +31,11 @@ const EXPLORED_CAP = 12
  * Reusable algorithm-visualisation panel.
  *
  * <p>This is <b>structure, not computation</b>: it renders whatever
- * {@link RouteResult} documents it is handed, alongside each run's
- * exploration order (the order the <em>demo</em> router visited stations). It
- * makes no claim of executing the Java BFS/Dijkstra/A* implementations — those
- * live in the backend and are not yet connected (no REST API). The panel is
- * designed so a later backend integration can feed identically-shaped results
- * through the very same UI.</p>
+ * {@link RouteResult} it is handed. Results come from the live backend routing
+ * API (Phase 10 {@code POST /api/routes}), which runs the real Java
+ * BFS / Dijkstra / A* implementations. Because the API does not expose an
+ * exploration <em>order</em>, the {@code explored} strip renders only when a
+ * result actually carries one — none is fabricated.</p>
  */
 export default function AlgorithmPanel({
   view,
@@ -44,7 +47,7 @@ export default function AlgorithmPanel({
     <section className="algorithm-panel" aria-label="Algorithm visualization">
       <header className="panel-heading">
         <h2>Algorithm visualization</h2>
-        <span className="demo-tag">frontend demo — not the Java engine</span>
+        <span className="api-tag">live backend routing API</span>
       </header>
       <div className="algorithm-runs">
         {runs.map((run) => {
@@ -69,7 +72,11 @@ export default function AlgorithmPanel({
                 <span className="algorithm-objective">{run.objective}</span>
               </header>
 
-              {result && result.found ? (
+              {run.state === 'loading' ? (
+                <p className="algorithm-loading">Calculating route with the backend…</p>
+              ) : run.state === 'error' ? (
+                <p className="algorithm-error">{run.error}</p>
+              ) : result && result.found ? (
                 <>
                   <p className="algorithm-path">
                     {result.stationIds
@@ -81,7 +88,9 @@ export default function AlgorithmPanel({
                     <span>{result.totalDistanceKm.toFixed(1)} km</span>
                     <span>{result.totalTravelTimeMinutes.toFixed(1)} min</span>
                   </div>
-                  <ExploredOrder result={result} view={view} />
+                  {result.explored.length > 0 && (
+                    <ExploredOrder result={result} view={view} />
+                  )}
                 </>
               ) : result ? (
                 <p className="algorithm-no-path">No route found</p>

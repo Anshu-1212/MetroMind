@@ -1,11 +1,8 @@
 # MetroMind — REST Routing API
 
-Introduced in **Phase 10**, the Spring Boot backend now exposes the existing Java
-routing algorithms (BFS, Dijkstra, A\*) through a single, strongly typed HTTP
-endpoint. This phase adds only the **backend REST bridge** — the React frontend
-does **not** call this API yet (see
-[README](../README.md#current-status) — frontend routing remains the
-client-side demo until a later phase).
+Introduced in **Phase 10** and integrated with the React frontend in **Phase 11**,
+the Spring Boot backend exposes the existing Java routing algorithms (BFS, Dijkstra, A\*)
+through a strongly typed HTTP endpoint (`POST /api/routes`).
 
 ## Endpoint
 
